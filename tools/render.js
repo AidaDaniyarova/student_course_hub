@@ -1,30 +1,53 @@
-export function render(viewFunction, viewData = {}, status=200) {
-const content = viewFunction(viewData);
-const html = `<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-            <title>Student Course Hub</title>
-            <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <header>
-            <h1>Student Course Hub</h1>
-        </header>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-            </ul>
-        </nav>
-        <main>
-            ${content}
-        </main>
-        <footer>
-            <p>&copy; 2026 My Website. All rights reserved.</p>
-        </footer>
-    </body>
-</html>`;
-const headers = { "content-type": "text/html" };
+// tools/render.js - Template rendering helpers
+export function escapeHtml(str) {
+  if (!str) return "";
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/`/g, "&#96;");
+}
 
-return new Response(html, {headers, status});
+export function truncate(str, length = 100) {
+  if (!str) return "";
+  if (str.length <= length) return str;
+  return str.substring(0, length) + "...";
+}
+
+export function formatDate(date) {
+  if (!date) return "";
+  const d = new Date(date);
+  return d.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+}
+
+export function slugify(str) {
+  return str
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/--+/g, "-")
+    .trim();
+}
+
+export function generateBreadcrumbs(path, programmeTitle = null) {
+  const paths = path.split("/").filter(p => p);
+  const breadcrumbs = [{ name: "Home", url: "/" }];
+  
+  let currentPath = "";
+  for (const p of paths) {
+    currentPath += "/" + p;
+    let name = p.charAt(0).toUpperCase() + p.slice(1);
+    if (p === "programmes" && programmeTitle) {
+      name = programmeTitle;
+    }
+    breadcrumbs.push({ name, url: currentPath });
+  }
+  
+  return breadcrumbs;
 }
