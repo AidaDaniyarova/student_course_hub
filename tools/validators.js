@@ -1,10 +1,11 @@
-// utils/validators.js - Data validation utilities
+// tools/validators.js
 export function validateEmail(email) {
   const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
   return emailRegex.test(email);
 }
 
 export function validatePhone(phone) {
+  if (!phone) return true; // Optional field
   const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,4}[-\s.]?[0-9]{1,9}$/;
   return phoneRegex.test(phone);
 }
@@ -19,6 +20,19 @@ export function validateLength(value, min, max) {
   if (!value) return false;
   const length = value.toString().length;
   return length >= min && length <= max;
+}
+
+export function validateUrl(url) {
+  if (!url) return true;
+  return /^https?:\/\/[^\s]+$/.test(url);
+}
+
+export function validateNumber(value, min, max) {
+  const num = Number(value);
+  if (isNaN(num)) return false;
+  if (min !== undefined && num < min) return false;
+  if (max !== undefined && num > max) return false;
+  return true;
 }
 
 export function validateProgramme(data) {
@@ -42,14 +56,15 @@ export function validateProgramme(data) {
     errors.push("Level must be Undergraduate or Postgraduate");
   }
   
-  if (data.credits && (data.credits < 0 || data.credits > 500)) {
+  if (data.credits && !validateNumber(data.credits, 0, 500)) {
     errors.push("Credits must be between 0 and 500");
   }
   
-  return {
-    isValid: errors.length === 0,
-    errors
-  };
+  if (data.image_url && !validateUrl(data.image_url)) {
+    errors.push("Image URL must be a valid URL");
+  }
+  
+  return { isValid: errors.length === 0, errors };
 }
 
 export function validateModule(data) {
@@ -67,22 +82,19 @@ export function validateModule(data) {
     errors.push("Title must be between 3 and 200 characters");
   }
   
-  if (data.year && (data.year < 1 || data.year > 4)) {
+  if (data.year && !validateNumber(data.year, 1, 4)) {
     errors.push("Year must be between 1 and 4");
   }
   
-  if (data.semester && (data.semester < 1 || data.semester > 2)) {
+  if (data.semester && !validateNumber(data.semester, 1, 2)) {
     errors.push("Semester must be 1 or 2");
   }
   
-  if (data.credits && (data.credits < 0 || data.credits > 60)) {
+  if (data.credits && !validateNumber(data.credits, 0, 60)) {
     errors.push("Credits must be between 0 and 60");
   }
   
-  return {
-    isValid: errors.length === 0,
-    errors
-  };
+  return { isValid: errors.length === 0, errors };
 }
 
 export function validateInterest(data) {
@@ -108,10 +120,7 @@ export function validateInterest(data) {
     errors.push("Programme selection is required");
   }
   
-  return {
-    isValid: errors.length === 0,
-    errors
-  };
+  return { isValid: errors.length === 0, errors };
 }
 
 export function validateLogin(data) {
@@ -125,8 +134,5 @@ export function validateLogin(data) {
     errors.push("Password is required");
   }
   
-  return {
-    isValid: errors.length === 0,
-    errors
-  };
+  return { isValid: errors.length === 0, errors };
 }
