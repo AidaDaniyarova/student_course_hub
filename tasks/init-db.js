@@ -1,7 +1,7 @@
-#!/usr/bin/env deno run --allow-all
 // tasks/init-db.js - Run: deno run --allow-all tasks/init-db.js
 
 import { Database } from "jsr:@db/sqlite@0.11";
+import { hashPassword } from "../tools/hash.js";
 
 const db = new Database("course_hub.db");
 
@@ -139,21 +139,28 @@ console.log("  ✓ sessions");
 
 console.log("\n✅ Tables created successfully");
 
-// Insert sample data
+// Insert sample data with hashed passwords
 console.log("\n📝 Inserting sample data...");
 
-// Users
+// Hash passwords
+const adminHash = await hashPassword("admin123");
+const staffHash = await hashPassword("staff123");
+const studentHash = await hashPassword("student123");
+
+// Users with hashed passwords
 const insertUser = db.prepare(`
   INSERT OR IGNORE INTO users (username, password, email, role)
   VALUES (?, ?, ?, ?)
 `);
 
-insertUser.run("admin", "admin123", "admin@university.com", "admin");
-insertUser.run("sjohnson", "staff123", "sarah.johnson@university.com", "staff");
-insertUser.run("mchen", "staff123", "michael.chen@university.com", "staff");
-insertUser.run("ebrown", "staff123", "emily.brown@university.com", "staff");
-insertUser.run("rjones", "staff123", "robert.jones@university.com", "staff");
-insertUser.run("student1", "student123", "student@email.com", "student");
+insertUser.run("admin", adminHash, "admin@university.com", "admin");
+insertUser.run("sjohnson", staffHash, "sarah.johnson@university.com", "staff");
+insertUser.run("mchen", staffHash, "michael.chen@university.com", "staff");
+insertUser.run("ebrown", staffHash, "emily.brown@university.com", "staff");
+insertUser.run("rjones", staffHash, "robert.jones@university.com", "staff");
+insertUser.run("student1", studentHash, "student@email.com", "student");
+
+console.log(`  ✓ Users inserted with hashed passwords`);
 
 // Get user IDs
 const admin = db.prepare("SELECT id FROM users WHERE username = 'admin'").get();

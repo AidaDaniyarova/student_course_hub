@@ -3,7 +3,7 @@ import { Router } from "./tools/router.js";
 import { getDb } from "./config/database.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { logger } from "./middleware/logging.js";
-import { attachUser } from "./middleware/auth.js";
+import { requireAuth, attachUser } from "./middleware/auth.js";
 import { rateLimit } from "./middleware/security.js";
 
 // Import controllers
@@ -15,7 +15,7 @@ import * as staffController from "./controllers/staffController.js";
 import * as viewController from "./controllers/viewController.js";
 
 // Import middleware
-import { requireAuth, requireAdmin, requireStaff } from "./middleware/auth.js";
+import { requireAdmin, requireStaff } from "./middleware/auth.js";
 
 // Initialize database
 await getDb();
@@ -64,6 +64,8 @@ app.get("/my-interests", (ctx) => viewController.showMyInterests(ctx));
 app.get("/login", (ctx) => authController.showLogin(ctx));
 app.post("/login", (ctx) => authController.handleLogin(ctx));
 app.get("/logout", (ctx) => authController.handleLogout(ctx));
+app.post("/api/change-password", requireAuth, (ctx) => authController.handleChangePassword(ctx));
+app.get("/change-password", requireAuth, (ctx) => authController.showChangePassword(ctx));
 
 // ============ API Routes ============
 app.post("/api/register-interest", (ctx) => interestController.registerInterest(ctx));

@@ -43,10 +43,12 @@ export function mainLayout(content, title = "Student Course Hub", user = null) {
           <div class="nav-links">
             <a href="/">Home</a>
             <a href="/programmes">Programmes</a>
+            <a href="/my-interests">Interests</a>
             
             ${user ? `
               <a href="/my-interests">My Interests</a>
               ${dashboardLink}
+              <a href="/change-password">Change Password</a>
               <a href="/logout" class="btn-logout">Logout (${escapeHtml(user.username)})</a>
             ` : `
               <a href="/login" class="btn-login">Staff Login</a>
@@ -68,14 +70,12 @@ export function mainLayout(content, title = "Student Course Hub", user = null) {
       <div class="footer-grid">
         <div class="footer-section">
           <h3>About Us</h3>
-          <p>Providing quality education and research opportunities since 1960.</p>
+          <p>Student Hub, providing quality education and research opportunities.</p>
         </div>
         <div class="footer-section">
           <h3>Quick Links</h3>
           <ul>
             <li><a href="/programmes">Programmes</a></li>
-            <li><a href="/privacy">Privacy Policy</a></li>
-            <li><a href="/accessibility">Accessibility</a></li>
           </ul>
         </div>
         <div class="footer-section">
@@ -85,7 +85,7 @@ export function mainLayout(content, title = "Student Course Hub", user = null) {
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 University of Example. All rights reserved.</p>
+        <p>&copy; 2026 University. All rights reserved.</p>
       </div>
     </div>
   </footer>

@@ -5,6 +5,7 @@
   "imports": {
     "@db/sqlite": "jsr:@db/sqlite@^0.13.0",
     "@std/assert": "jsr:@std/assert@1",
-    "@std/http": "jsr:@std/http@^1.1.0"
+    "@std/http": "jsr:@std/http@^1.1.0",
+    "https://deno.land/x/bcrypt@v0.4.1/mod.ts": "https://deno.land/x/bcrypt@v0.4.1/mod.ts"
   }
 }

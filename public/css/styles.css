@@ -711,6 +711,10 @@ tr:hover td {
   margin-bottom: var(--spacing-md);
 }
 
+.form-group-interest{
+  margin-bottom: 0;
+}
+
 .form-group label {
   display: block;
   margin-bottom: var(--spacing-xs);

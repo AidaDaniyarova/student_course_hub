@@ -21,7 +21,7 @@ export function myInterestsPage(interests, email, user) {
     
     <div class="filters">
       <form method="GET" action="/my-interests" style="display:flex;gap:1rem;align-items:flex-end">
-        <div class="form-group" style="flex:1">
+        <div class="form-group form-group-interest" style="flex:1">
           <label for="email">Email Address</label>
           <input type="email" id="email" name="email" value="${escapeHtml(email)}" placeholder="Enter your email" required>
         </div>

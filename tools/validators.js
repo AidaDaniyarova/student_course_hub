@@ -1,5 +1,6 @@
 // tools/validators.js
 export function validateEmail(email) {
+  if (!email) return true; // Email is optional for staff
   const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
   return emailRegex.test(email);
 }
@@ -33,6 +34,42 @@ export function validateNumber(value, min, max) {
   if (min !== undefined && num < min) return false;
   if (max !== undefined && num > max) return false;
   return true;
+}
+
+export function validateUsername(username) {
+  if (!username) return false;
+  // Username: letters, numbers, underscore, dot, min 3, max 50
+  const usernameRegex = /^[a-zA-Z0-9._]{3,50}$/;
+  return usernameRegex.test(username);
+}
+
+export function validatePasswordStrength(password) {
+  if (!password) return false;
+  const minLength = 8;
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasNumbers = /\d/.test(password);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+  
+  return password.length >= minLength && 
+         hasUpperCase && 
+         hasLowerCase && 
+         hasNumbers && 
+         hasSpecialChar;
+}
+
+export function validateLogin(data) {
+  const errors = [];
+  
+  if (!validateRequired(data.username)) {
+    errors.push("Username is required");
+  }
+  
+  if (!validateRequired(data.password)) {
+    errors.push("Password is required");
+  }
+  
+  return { isValid: errors.length === 0, errors };
 }
 
 export function validateProgramme(data) {
@@ -118,20 +155,6 @@ export function validateInterest(data) {
   
   if (!validateRequired(data.programme_id)) {
     errors.push("Programme selection is required");
-  }
-  
-  return { isValid: errors.length === 0, errors };
-}
-
-export function validateLogin(data) {
-  const errors = [];
-  
-  if (!validateRequired(data.username)) {
-    errors.push("Username is required");
-  }
-  
-  if (!validateRequired(data.password)) {
-    errors.push("Password is required");
   }
   
   return { isValid: errors.length === 0, errors };

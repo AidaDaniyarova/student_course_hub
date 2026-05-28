@@ -22,7 +22,7 @@ export async function initDatabase() {
   `).all();
   
   if (tables.length === 0) {
-    console.log("⚠️  Database not initialized. Run: deno run --allow-all tasks/init-db.js");
+    console.log("Database not initialized. Run: deno run --allow-all tasks/init-db.js");
   } else {
     console.log("✅ Database connected");
   }
