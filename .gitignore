@@ -1,0 +1,16 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Local SQLite database (recreate with: deno run --allow-all tasks/init-db.js)
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
