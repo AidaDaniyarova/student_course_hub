@@ -48,7 +48,6 @@ export function mainLayout(content, title = "Student Course Hub", user = null) {
             ${user ? `
               <a href="/my-interests">My Interests</a>
               ${dashboardLink}
-              <a href="/change-password">Change Password</a>
               <a href="/logout" class="btn-logout">Logout (${escapeHtml(user.username)})</a>
             ` : `
               <a href="/login" class="btn-login">Staff Login</a>

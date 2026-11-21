@@ -1,4 +1,4 @@
-// controllers/authController.js - Updated with password hashing
+// controllers/authController.js
 import { getDb } from "../config/database.js";
 import { createSession, destroySession, getSession } from "../tools/auth.js";
 import { loginPage } from "../views/pages/auth/login.js";

@@ -1,4 +1,4 @@
-// tools/hash.js - Add password strength validation
+// tools/hash.js
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 
 const SALT_ROUNDS = 10;

@@ -1,4 +1,4 @@
-// controllers/staffController.js - Updated with validation
+// controllers/staffController.js
 import { getDb } from "../config/database.js";
 import { adminStaffListPage, addStaffFormPage } from "../views/pages/admin/staff.js";
 import { sanitize } from "../tools/render.js";

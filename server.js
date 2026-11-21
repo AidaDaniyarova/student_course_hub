@@ -1,4 +1,4 @@
-// server.js - Complete server with routing
+// server.js
 import { Router } from "./tools/router.js";
 import { getDb } from "./config/database.js";
 import { errorHandler } from "./middleware/errorHandler.js";

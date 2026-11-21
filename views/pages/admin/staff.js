@@ -1,4 +1,4 @@
-// views/pages/admin/staff.js - Updated form with validation hints
+// views/pages/admin/staff.js
 import { mainLayout } from "../../layouts/mainLayout.js";
 import { escapeHtml, formatDate } from "../../../tools/render.js";
 

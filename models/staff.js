@@ -1,4 +1,4 @@
-// models/staff.js - Staff model
+// models/staff.js
 import { db } from "../server.js";
 
 export class Staff {

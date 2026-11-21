@@ -1,4 +1,4 @@
-// models/User.js - Updated with validation
+// models/User.js
 import { getDb } from "../config/database.js";
 import { hashPassword, verifyPassword } from "../tools/hash.js";
 import { validateEmail, validateUsername } from "../tools/validators.js";

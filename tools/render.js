@@ -1,4 +1,4 @@
-// tools/render.js - Enhanced with academic titles
+// tools/render.js
 
 export function escapeHtml(str) {
   if (!str) return "";

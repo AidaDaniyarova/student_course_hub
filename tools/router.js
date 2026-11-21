@@ -1,4 +1,4 @@
-// tools/router.js - Custom router with middleware support
+// tools/router.js
 export class Router {
   constructor() {
     this.routes = {
